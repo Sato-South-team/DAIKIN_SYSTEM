@@ -194,7 +194,7 @@ namespace DAIKIN_PRINTING_SYSTEM.Transaction
                         DataSet ds = obj_BL.BL_Transaction();
                         if (ds.Tables.Count > 0)
                         {
-                            //rrttt
+                            //123212223
                             if (ds.Tables[0].Rows[0][0].ToString() == "Saved")
                             {
 
