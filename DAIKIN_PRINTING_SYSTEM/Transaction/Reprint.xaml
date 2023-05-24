@@ -1,0 +1,116 @@
+﻿<Page x:Class="DAIKIN_PRINTING_SYSTEM.Transaction.Reprint"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DAIKIN_PRINTING_SYSTEM.Transaction"
+      mc:Ignorable="d" 
+      Title="Reprint" Background="White" Loaded="Page_Loaded" KeyDown="Window_KeyDown">
+    <Grid>
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+            <TextBlock x:Name="txtHeader" TextDecorations="UNDERLINE" Text="RE-PRINT" HorizontalAlignment="Center"
+                 FontFamily="Times New Roman" FontSize="23" Margin="5" Foreground="OrangeRed" FontWeight="ExtraBold"/>
+        </Grid>
+        <Grid VerticalAlignment="Stretch" Margin="0,50,0,0" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="{Binding}"/>
+
+            </Grid.RowDefinitions>
+
+
+            <Border Grid.Row="0" Style="{StaticResource BorderStyle}" VerticalAlignment="Top" HorizontalAlignment="Center" >
+                <Grid Margin="5" x:Name="grid1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="310"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="35"/>
+
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="Date:"/>
+                    <Label Content="Line No" Grid.Row="1" Grid.Column="0" />
+                    <Label Content="Station:" Grid.Row="2" Grid.Column="0" />
+                    <Label Content="Remarks:" Grid.Row="3" Grid.Column="0" />
+                    <Label Content="SCAN PLATE/PIPE:" Grid.Row="4" Grid.Column="0" />
+
+                    <DatePicker  ToolTip="From date" BorderBrush="Transparent" Width="150" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" Name="dtpFrom"  />
+                    <DatePicker  ToolTip="To date"  BorderBrush="Transparent" Width="150"  HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1" Name="dtpTo"   />
+                    <ComboBox Grid.Column="1" Name="cmbLine" Grid.Row="1" SelectionChanged="CmbLineNo_SelectionChanged"   >
+                    </ComboBox>
+                    <ComboBox Grid.Column="1" Name="cmbStation" Grid.Row="2" ></ComboBox>
+                    <RichTextBox FontWeight="DemiBold" FontFamily="Calibri" FontSize="15" x:Name="txtRemarks" Grid.Column="1" Grid.Row="3" />
+
+                    <TextBox Grid.Row="4" Grid.Column="1" x:Name="txtScan" KeyDown="TxtScan_KeyDown"></TextBox>
+                   
+                </Grid>
+            </Border>
+            <Border Grid.Row="1" Style="{StaticResource BorderStyle}" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" >
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="110"/>
+
+                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition Width="110"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"/>
+                    </Grid.RowDefinitions>
+                    <Button ToolTip="Press Alt+S for Show" x:Name="btnShow" Grid.Column="0" Click="BtnShow_Click" >
+                        <TextBlock><Run Text="SHOW"/></TextBlock>
+                    </Button>
+                    <Button ToolTip="Press Alt+P for Print" x:Name="btnPrint" Grid.Column="1" Click="BtnPrint_Click" >
+                        <TextBlock><Run Text="PRINT"/></TextBlock>
+                    </Button>
+                    <Button ToolTip="Press Alt+C for Clear" x:Name="btnClear" Grid.Column="2" Click="BtnClear_Click" >
+                        <TextBlock><Run Text="CLEAR"/></TextBlock>
+                    </Button>
+                    <Button ToolTip="Press Alt+E for Exit" x:Name="btnExit" Grid.Column="3" Click="BtnExit_Click" >
+                        <TextBlock><Run Text="EXIT"/></TextBlock>
+                    </Button>
+
+                </Grid>
+            </Border>
+            <Border  x:Name="brdDatagrid" Visibility="Visible"  Style="{StaticResource BorderStyle}" Margin="0,0,0,0" VerticalAlignment="Stretch"
+              HorizontalAlignment="Center" Grid.Row="2">
+                <Grid Margin="7">
+                    <CheckBox Content="Select ALL" Checked="PCDetails_Checked" Unchecked="PCDetails_Unchecked" Name="PCDetails"
+                    ToolTip="Click on this check box to select all rows" Height="16" VerticalAlignment="Top"
+                    Margin="0,1,0,0"/>
+
+                    <DataGrid x:Name="dvgMasterDeatils" Margin="0,25,0,0">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="60" Header=" SELECT ">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="chkSelect" IsChecked="{Binding Path=Flag, NotifyOnTargetUpdated=true, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn Width="auto" Header=" SL.NO  " ElementStyle="{StaticResource WrapText}" Binding="{Binding SLNO}"/>
+                            <DataGridTextColumn Width="auto" Header=" LOCATION " ElementStyle="{StaticResource WrapText}"
+                                  Binding="{Binding LineNo}"/>
+                            <DataGridTextColumn Width="auto" Header=" STATION " ElementStyle="{StaticResource WrapText}"
+                                  Binding="{Binding Station}"/>
+                            <DataGridTextColumn Width="auto" Header=" MODEL NO " ElementStyle="{StaticResource WrapText}"
+                                  Binding="{Binding ModelNo}"/>
+                            <DataGridTextColumn Width="auto" Header=" PIPE BARCODE " ElementStyle="{StaticResource WrapText}"
+                                  Binding="{Binding DPMBarcode}"/>
+                            <DataGridTextColumn Width="auto" Header=" PLATE BARCODE " ElementStyle="{StaticResource WrapText}"
+                                  Binding="{Binding Barcode}"/>
+                            
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,109 @@
+﻿<Page x:Class="DAIKIN_PRINTING_SYSTEM.Masters.LineMaster"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:DAIKIN_PRINTING_SYSTEM.Masters"
+      Loaded="Window_Loaded" KeyDown="Window_KeyDown" Title="LineMaster" Background="White">
+    <Grid>
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+            <TextBlock TextDecorations="UNDERLINE" Text="LINE MASTER" HorizontalAlignment="Center"
+                 FontFamily="Times New Roman" FontSize="23" Margin="5" Foreground="OrangeRed" FontWeight="ExtraBold"/>
+        </Grid>
+        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="7,50,7,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="550"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="{Binding}"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding}"/>
+            </Grid.RowDefinitions>
+            <Border Style="{StaticResource BorderStyle}" VerticalAlignment="Top" HorizontalAlignment="Center"
+              Grid.Column="0" Grid.Row="0">
+                <Grid Name="grid1" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="300"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+
+                    </Grid.RowDefinitions>
+                    <TextBox Name="txtPlantName" Grid.Column="1" Grid.Row="0"/>
+                    <TextBox Name="txtPlantCode" Grid.Column="1" Grid.Row="1"/>
+                    <ComboBox Name="cmbLineNo" Grid.Row="2" Grid.Column="1" SelectionChanged="CmbLineNo_SelectionChanged"/>
+                    <TextBox Name="txtLineName" Grid.Column="1" Grid.Row="3"/>
+                    <TextBox Name="txtStationName" Grid.Column="1" Grid.Row="4"/>
+                    <Label Grid.Row="0" Grid.Column="0">
+                        <TextBlock >Plant Name :<Run Foreground="Red" Text="*"></Run></TextBlock>
+                    </Label>
+                    <Label Grid.Row="1" Grid.Column="0">
+                        <TextBlock >Plant Code :<Run Foreground="Red" Text="*"></Run></TextBlock>
+                    </Label>
+                    <Label Grid.Row="2" Grid.Column="0">
+                        <TextBlock >Line No :<Run Foreground="Red" Text="*"></Run></TextBlock>
+                    </Label>
+                    <Label Grid.Row="3" Grid.Column="0">
+                        <TextBlock >Line Name :<Run Foreground="Red" Text="*"></Run></TextBlock>
+                    </Label>
+                    <Label Grid.Row="4" Grid.Column="0">
+                        <TextBlock >Station Name :<Run Foreground="Red" Text="*"> </Run></TextBlock>
+
+                    </Label>
+                </Grid>
+            </Border>
+            <Border Style="{StaticResource BorderStyle}" VerticalAlignment="Top" HorizontalAlignment="Center"
+              Margin="0,205,0,0" Grid.Column="0" Grid.Row="0">
+                <Grid Margin="7">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="105"/>
+                        <ColumnDefinition Width="105"/>
+                        <ColumnDefinition Width="105"/>
+                        <ColumnDefinition Width="105"/>
+                        <ColumnDefinition Width="105"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Click="btnSave_Click" x:Name="btnSave" Content="SAVE" ToolTip="Press Alt+S for Save"/>
+                    <Button Click="btnUpdate_Click" x:Name="btnUpdate" Content="UPDATE" ToolTip="Press Alt+U for Update"
+                  Grid.Column="1"/>
+                    <Button Click="btnDelete_Click" x:Name="btnDelete" Content="DELETE" ToolTip="Press Alt+D for Delete"
+                  Grid.Column="2"/>
+                    <Button Click="btnClear_Click" x:Name="btnClear" Content="CLEAR" ToolTip="Press Alt+C for Clear"
+                  Grid.Column="3"/>
+                    <Button Click="btnExit_Click" x:Name="btnExit" Content="EXIT" ToolTip="Press Alt+E for Back"
+                  Grid.Column="4"/>
+                </Grid>
+            </Border>
+            <Border Style="{StaticResource BorderStyle}" Margin="0,0,0,10" VerticalAlignment="Stretch"
+              HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="2">
+                <Grid Margin="7">
+                    <DataGrid SelectionChanged="dvgMasterDeatils_SelectionChanged" x:Name="dvgMasterDeatils"
+                    ToolTip="Single selection is for edit all columns and multiple selection is for delete data">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="auto" Header="  SL.NO  " ElementStyle="{StaticResource WrapText}" Binding="{Binding SLNO}"/>
+                            <DataGridTextColumn Width="auto" Header="  PLANT NAME " ElementStyle="{StaticResource WrapText}"
+                                  Binding="{Binding PlantName}"/>
+                            <DataGridTextColumn Width="auto" Header="  PLANT CODE " ElementStyle="{StaticResource WrapText}"
+                                  Binding="{Binding PlantCode}"/>
+                            <DataGridTextColumn Width="auto" Header="  LINE NO " ElementStyle="{StaticResource WrapText}"
+                                  Binding="{Binding LineNo}"/>
+                            <DataGridTextColumn Width="auto" Header="  LINE NAME " ElementStyle="{StaticResource WrapText}"
+                                  Binding="{Binding LineName}"/>
+                            <DataGridTextColumn Width="auto" Header="  STATION NAME " ElementStyle="{StaticResource WrapText}"
+                                  Binding="{Binding Station}"/>
+                            <DataGridTextColumn Width="auto" Header="  REFNO  " Visibility="Hidden" ElementStyle="{StaticResource WrapText}"
+                                  Binding="{Binding RefNo}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>
